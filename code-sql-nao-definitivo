@@ -1,0 +1,40 @@
+CREATE TABLE Sala (
+    id_sala INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    status CHAR(1),
+    nome_sala VARCHAR(100)
+);
+
+CREATE TABLE usuario (
+    pk_id_usuario INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nome VARCHAR(100),
+    email_senai VARCHAR(255) NOT NULL UNIQUE,
+    disciplina VARCHAR(100),
+    senha VARCHAR(255) NOT NULL,
+    tipo_usuario VARCHAR(50)
+);
+
+CREATE TABLE agendamento (
+    id_agendamento INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    data DATE NOT NULL,
+    fk_id_sala INT NOT NULL,
+    fk_id_usuario INT NOT NULL,
+
+    FOREIGN KEY (fk_id_sala)
+        REFERENCES Sala(id_sala),
+
+    FOREIGN KEY (fk_id_usuario)
+        REFERENCES usuario(pk_id_usuario)
+);
+
+CREATE TABLE historico (
+    id_historico INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    data DATE NOT NULL,
+    fk_id_sala INT NOT NULL,
+    fk_id_usuario INT NOT NULL,
+
+    FOREIGN KEY (fk_id_sala)
+        REFERENCES Sala(id_sala),
+
+    FOREIGN KEY (fk_id_usuario)
+        REFERENCES usuario(pk_id_usuario)
+);
